@@ -11,13 +11,61 @@ const petsList = [
 ]
 
 function SimpleForm() {
-  return <div>Ready to start GP!</div>
-}
+
+  const [pets, setPets] = useState(petsList);
+  const [formValues, setFormValues] = useState({petName: "", petType: ""});
+
+  const change = evt => {
+    const {name, value} = evt.target
+    //destructured above is like below
+    // const name = evt.target.name
+    // const value = evt.target.value
+      setFormValues({...formValues, [name]: value})
+
+  }
+
+  const submit = evt => {
+    evt.preventDefault()
+    setPets(pets.concat({petsName: formValues.petName, petTypeE: formValues.petType}))
+    setFormValues({petName: "  ", petType: ""})
+  }
+
+
+  return ( 
+  <div className="container">
+    <h1>Simple Form App</h1>
+    { pets.map((pet, idx) => {
+      return (
+        <div key={idx}>
+          {pet.petName} is a {pet.petType}
+          </div>
+      )
+    })}
+
+      <form onSubmit={submit}>
+        <input
+          name="petName"
+          type="text"
+          value={formValues.petName}
+          onChange={change}
+        />
+        <input
+          name="petType"
+          type="text"
+          value={formValues.petType}
+          onChange={change}
+        />
+        <input type="submit" value="Create a Pet!"/>
+      </form>
+
+  </div>
+  
+  )}
 
 render(
   <>
     <SimpleForm />
-    {/* <App /> */}
+    <App />
   </>
   , document.querySelector('#root')
 )

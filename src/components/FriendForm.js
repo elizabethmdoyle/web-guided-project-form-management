@@ -9,12 +9,17 @@ export default function FriendForm(props) {
     // a) pull the name of the input from the event object
     // b) pull the value of the input from the event object
     // c) use the `update` callback coming in through props
+
+    const {name, value} = evt.target
+    update(name, value);
   }
 
   const onSubmit = evt => {
     // 🔥 STEP 7 - IMPLEMENT the submit handler
-    // a) don't allow the browser to reload!
+    // a) don't allow the browser to reload!   
+     evt.preventDefault()
     // c) use the `submit` callback coming in through props
+    submit()
   }
 
   return (
@@ -27,11 +32,27 @@ export default function FriendForm(props) {
           {/* 🔥 STEP 3 - Make an input of type `text` for username.
               Controlled inputs need `value` and `onChange` props.
               Inputs render what they're told - their current value comes from app state.
-              At each keystroke, a change handler fires to change app state. */}
+              At each keystroke, a change handler fires to change app state. */}   
+         <input 
+            type="text" 
+            name="username"
+            placeholder="Type a Username"
+            value={values.username}
+            onChange={onChange}
+             >Username</input>
+
         </label>
 
         <label>Email
           {/* 🔥 STEP 4 - Make an input of type `email` or `text` for email. */}
+          <input
+            type="email" 
+            name="email"
+            placeholder="Type a Email"
+            value={values.email}
+            onChange={onChange}
+                >Email</input>
+
         </label>
 
         {/* ////////// DROPDOWN ////////// */}
@@ -39,6 +60,12 @@ export default function FriendForm(props) {
         {/* ////////// DROPDOWN ////////// */}
         <label>Role
           {/* 🔥 STEP 5 - Make dropdown for role. */}
+          <select value={values.role} name="role" onChnage={onChange}>
+            <option value="" >Select A Role</option>
+            <option value="Student" >Student</option>
+            <option value="Instructor" >Instructor</option>
+            <option value="Alumni" >Alumni</option>
+          </select>
         </label>
 
         <div className='submit'>
